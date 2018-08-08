@@ -10,6 +10,9 @@ public class CharController : MonoBehaviour {
 
 	public float turnSpeed = 5f;
 
+	[HideInInspector]
+	public bool canMove;
+
 	void Start ()
 	{
 		character = GetComponent<CharacterController>();
@@ -18,6 +21,9 @@ public class CharController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (!canMove)
+			return;
+
 		float moveVertical = Input.GetAxis("Vertical");
 
 		Vector3 moveVector = transform.forward * (moveVertical * moveSpeed);
