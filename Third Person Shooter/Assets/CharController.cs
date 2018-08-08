@@ -10,8 +10,7 @@ public class CharController : MonoBehaviour {
 
 	public float turnSpeed = 5f;
 
-	[HideInInspector]
-	public bool canMove;
+	public bool canMove = true;
 
 	void Start ()
 	{

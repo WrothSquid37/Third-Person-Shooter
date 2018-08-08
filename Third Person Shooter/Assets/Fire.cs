@@ -14,21 +14,21 @@ public class Fire : MonoBehaviour {
 
 	public float shootVelocity = 5f;
 
-	private Player characterStats;
+	private CharacterStats characterStats;
 
 	private CharController character;
 
 	void Start()
 	{
-		characterStats = GetComponent<Player>();
+		characterStats = GetComponent<CharacterStats>();
 		character = GetComponent<CharController>();
 	}
 
 	void Update()
 	{
+
 		if (!characterStats.isAlive)
 			return;
-
 
 		if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
 		{

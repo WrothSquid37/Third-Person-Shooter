@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class CharacterStats : MonoBehaviour {
 
 	#region Variables
 
