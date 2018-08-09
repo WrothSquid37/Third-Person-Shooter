@@ -2,19 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMechanics : MonoBehaviour { 
+public class PlayerMechanics : MonoBehaviour {
+
+	#region Moving Variables
 
 	public float moveSpeed;
 
 	public float rotationSpeed;
 
-	public float lifetime;
+	#endregion
 
-	public float launchSpeed;
+	#region Bullet Variables
 
 	public Transform prefab;
 
+	public List<Transform> transforms;
+
+	public string deathTag;
+
+	public float launchSpeed;
+
+	#endregion
+
+	#region Private Variables
+
 	private CharacterController controller;
+
+	#endregion
 
 	void Start()
 	{
@@ -25,6 +39,7 @@ public class PlayerMechanics : MonoBehaviour {
 	{
 		MovePlayer();
 		RotatePlayer();
+
 		FireBullets();
 	}
 
@@ -59,10 +74,21 @@ public class PlayerMechanics : MonoBehaviour {
 				rb.velocity = controller.transform.forward * launchSpeed;
 			}
 
-			Destroy(instance.gameObject, lifetime);
+			transforms.Add(instance);
 
 		}
-	}
 
+		foreach (Transform t in transforms)
+		{
+			BulletDestroyer destroyer = t.GetComponent<BulletDestroyer>();
+
+			if (destroyer != null)
+			{
+				destroyer.destroyTag = deathTag;
+			}
+	
+		}
+
+	}
 
 }
