@@ -8,6 +8,12 @@ public class PlayerMechanics : MonoBehaviour {
 
 	public float rotationSpeed;
 
+	public float lifetime;
+
+	public float launchSpeed;
+
+	public Transform prefab;
+
 	private CharacterController controller;
 
 	void Start()
@@ -19,6 +25,7 @@ public class PlayerMechanics : MonoBehaviour {
 	{
 		MovePlayer();
 		RotatePlayer();
+		FireBullets();
 	}
 
 	private void RotatePlayer()
@@ -34,9 +41,27 @@ public class PlayerMechanics : MonoBehaviour {
 	{
 		float vertical = Input.GetAxis("Vertical");
 
-		Vector3 moveVector = Vector3.forward * (vertical * moveSpeed);
+		Vector3 moveVector = transform.forward * (vertical * moveSpeed);
 
 		controller.SimpleMove(moveVector);
+	}
+
+	void FireBullets()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Transform instance = Instantiate(prefab, controller.transform.position + (controller.transform.forward * transform.localScale.y), Quaternion.identity);
+
+			Rigidbody rb = instance.GetComponent<Rigidbody>();
+
+			if (rb != null)
+			{
+				rb.velocity = controller.transform.forward * launchSpeed;
+			}
+
+			Destroy(instance.gameObject, lifetime);
+
+		}
 	}
 
 
