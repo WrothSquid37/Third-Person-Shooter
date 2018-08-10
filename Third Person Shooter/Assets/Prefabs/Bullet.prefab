@@ -179,7 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e7743b23192fb48929115847e2f843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTag: 
+  destroyTags:
+  - Obstacle
+  - Barrier
 --- !u!135 &135419860202712924
 SphereCollider:
   m_ObjectHideFlags: 1

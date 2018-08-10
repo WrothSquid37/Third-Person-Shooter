@@ -16,10 +16,6 @@ public class PlayerMechanics : MonoBehaviour {
 
 	public Transform prefab;
 
-	public List<Transform> transforms;
-
-	public string deathTag;
-
 	public float launchSpeed;
 
 	#endregion
@@ -74,19 +70,6 @@ public class PlayerMechanics : MonoBehaviour {
 				rb.velocity = controller.transform.forward * launchSpeed;
 			}
 
-			transforms.Add(instance);
-
-		}
-
-		foreach (Transform t in transforms)
-		{
-			BulletDestroyer destroyer = t.GetComponent<BulletDestroyer>();
-
-			if (destroyer != null)
-			{
-				destroyer.destroyTag = deathTag;
-			}
-	
 		}
 
 	}

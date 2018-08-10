@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class BulletDestroyer : MonoBehaviour {
 
-	[HideInInspector]
-	public string destroyTag;
+	public List<string> destroyTags;
 
 	private void OnCollisionEnter(Collision other)
-	{
-		if (other.gameObject.CompareTag(destroyTag))
+	{	
+		foreach (string s in destroyTags)
 		{
-			Destroy(gameObject);
+			if (other.gameObject.CompareTag(s))
+			{
+				Destroy(gameObject);
+			}
 		}
 	}
 
