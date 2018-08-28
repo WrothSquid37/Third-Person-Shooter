@@ -7,6 +7,7 @@ TagManager:
   - Bullet
   - Obstacle
   - Barrier
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - 
   - PostProcessing
   - ground
-  - 
+  - Player
   - 
   - 
   - 
