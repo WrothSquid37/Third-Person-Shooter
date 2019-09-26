@@ -184,6 +184,7 @@ MonoBehaviour:
   - Barrier
   - Player
   - Enemy
+  - Bullet
 --- !u!135 &135419860202712924
 SphereCollider:
   m_ObjectHideFlags: 1

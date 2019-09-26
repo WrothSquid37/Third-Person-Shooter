@@ -13,6 +13,8 @@ public class PlayerMechanics : MonoBehaviour {
 
 	CharacterController controller;
 
+    [HideInInspector] public float hp = 100f;
+
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
@@ -60,5 +62,25 @@ public class PlayerMechanics : MonoBehaviour {
 		}
 
 	}
+
+    public void TakeDamage(float amount)
+    {
+        hp -= amount;
+        if (hp < 0) hp = 0;
+    }
+
+    public void Heal(float amount)
+    {
+        hp += amount;
+        if (hp > 0) hp = 100f;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.transform.CompareTag("Bullet"))
+        {
+            TakeDamage(10);
+        }
+    }
 
 }
