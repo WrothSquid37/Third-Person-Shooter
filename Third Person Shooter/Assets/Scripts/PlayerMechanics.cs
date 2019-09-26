@@ -4,27 +4,14 @@ using UnityEngine;
 
 public class PlayerMechanics : MonoBehaviour {
 
-	#region Moving Variables
-
+	
 	public float moveSpeed;
-
 	public float rotationSpeed;
 
-	#endregion
-
-	#region Bullet Variables
-
 	public Transform prefab;
-
 	public float launchSpeed;
 
-	#endregion
-
-	#region Private Variables
-
-	private CharacterController controller;
-
-	#endregion
+	CharacterController controller;
 
 	void Start()
 	{
