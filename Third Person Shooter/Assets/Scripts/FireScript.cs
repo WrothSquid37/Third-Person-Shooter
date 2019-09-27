@@ -24,6 +24,8 @@ public class FireScript : MonoBehaviour {
 
     private float nextTimeToFire = 0;
 
+    public Animation animation;
+
     private void Start()
     {
         hp = startHealthpoints;
