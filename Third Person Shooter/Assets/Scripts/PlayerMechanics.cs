@@ -15,9 +15,9 @@ public class PlayerMechanics : MonoBehaviour {
     CharacterController controller;
 
     [HideInInspector] public float hp = 100f;
-    [HideInInspector] public float shieldHp = 50f;
+    [HideInInspector] public float shieldHp = 100f;
 
-    bool shieldActivated = false;
+    [HideInInspector] public bool shieldActivated = false;
 
 	void Start()
 	{
@@ -33,6 +33,8 @@ public class PlayerMechanics : MonoBehaviour {
 
 		if (!shieldActivated) FireBullets();
         if (hp <= 0) transform.gameObject.SetActive(false);
+
+        Debug.Log(shieldActivated);
 	}
 
 	private void RotatePlayer()

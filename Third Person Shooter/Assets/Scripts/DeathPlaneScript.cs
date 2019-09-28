@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldController : MonoBehaviour {
+public class DeathPlaneScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
