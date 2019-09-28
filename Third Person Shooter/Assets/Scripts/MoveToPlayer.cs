@@ -11,6 +11,7 @@ public class MoveToPlayer : MonoBehaviour {
 
 	void Start()
 	{
+        player = GameObject.Find("Player").gameObject.transform;
 		agent = GetComponent<NavMeshAgent>();
 	}
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMechanics : MonoBehaviour {
 
@@ -11,9 +9,15 @@ public class PlayerMechanics : MonoBehaviour {
 	public Transform prefab;
 	public float launchSpeed;
 
-	CharacterController controller;
+    public float fireRate = 10f;
+    private float nextTimeToFire = 0;
+
+    CharacterController controller;
 
     [HideInInspector] public float hp = 100f;
+    [HideInInspector] public float shieldHp = 50f;
+
+    bool shieldActivated = false;
 
 	void Start()
 	{
@@ -25,7 +29,10 @@ public class PlayerMechanics : MonoBehaviour {
 		MovePlayer();
 		RotatePlayer();
 
-		FireBullets();
+        KeyFunctions();
+
+		if (!shieldActivated) FireBullets();
+        if (hp <= 0) transform.gameObject.SetActive(false);
 	}
 
 	private void RotatePlayer()
@@ -46,9 +53,17 @@ public class PlayerMechanics : MonoBehaviour {
 		controller.SimpleMove(moveVector);
 	}
 
+    private void KeyFunctions()
+    {
+        if (Input.GetKeyDown(KeyCode.B) && !(shieldHp < 0))
+        {
+            shieldActivated = !shieldActivated;
+        }
+    }
+
 	void FireBullets()
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKey(KeyCode.Space) && Time.time >= nextTimeToFire)
 		{
 			Transform instance = Instantiate(prefab, controller.transform.position + (controller.transform.forward * transform.localScale.y), Quaternion.identity);
 
@@ -57,7 +72,8 @@ public class PlayerMechanics : MonoBehaviour {
 			if (rb != null)
 			{
 				rb.velocity = controller.transform.forward * launchSpeed;
-			}
+                nextTimeToFire = Time.time + (1f / fireRate);
+            }
 
 		}
 
@@ -65,8 +81,16 @@ public class PlayerMechanics : MonoBehaviour {
 
     public void TakeDamage(float amount)
     {
-        hp -= amount;
+        if (shieldHp >= 0 && shieldActivated)
+        {
+            shieldHp -= amount;
+        }
+        else
+        {
+            hp -= amount;
+        }       
         if (hp < 0) hp = 0;
+        if (shieldHp < 0) shieldActivated = false;
     }
 
     public void Heal(float amount)
@@ -79,7 +103,7 @@ public class PlayerMechanics : MonoBehaviour {
     {
         if (other.transform.CompareTag("Bullet"))
         {
-            TakeDamage(10);
+            TakeDamage(5);
         }
     }
 

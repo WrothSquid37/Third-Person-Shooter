@@ -20,11 +20,9 @@ public class FireScript : MonoBehaviour {
 
     public float maxHealthpoints = 100f;
 
-    private float hp = 100f;
+    [HideInInspector] public float hp = 100f;
 
     private float nextTimeToFire = 0;
-
-    public Animation animation;
 
     private void Start()
     {
@@ -40,8 +38,6 @@ public class FireScript : MonoBehaviour {
         {
 
             Vector3 shotOffset = transform.forward * (prefab.localScale.x * 2.1f);
-
-            print(true);
 
             if (Time.time >= nextTimeToFire) {
 
@@ -69,7 +65,7 @@ public class FireScript : MonoBehaviour {
     {
         if (other.transform.CompareTag("Bullet"))
         {
-            TakeDamage(25);
+            TakeDamage(10);
         }
     }
 

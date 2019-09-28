@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 114904263482395888}
   - component: {fileID: 114796334425337632}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1352558123764296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.498, y: 1.125, z: 23.14}
+  m_LocalPosition: {x: -7.185563, y: 1, z: 12.230032}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4786662789695314}
@@ -284,7 +284,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 9970550625d671e4f848460e492ec110, type: 2}
+  - {fileID: 2100000, guid: fe38a90d097b1d646b753b6fd0f653d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -571,11 +571,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4511826386905850, guid: 257c2133c85f83c48b05bbcacb7b806e, type: 2}
   launchMultiplier: 15
-  fireRate: 3
+  fireRate: 6
   allowedLayers:
     serializedVersion: 2
     m_Bits: 1024
-  range: 100
+  range: 75
   damage: 5
   startHealthpoints: 100
   maxHealthpoints: 100
