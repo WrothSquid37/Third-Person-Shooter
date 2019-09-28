@@ -1,28 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FireScript : MonoBehaviour {
 
     public Transform prefab;
 
     public float launchMultiplier = 10f;
-
     public float fireRate = 10f;
+    private float nextTimeToFire = 0;
 
     public LayerMask allowedLayers;
 
     public float range = 100f;
 
-    public float damage = 5f;
-
     public float startHealthpoints = 100f;
-
     public float maxHealthpoints = 100f;
 
     [HideInInspector] public float hp = 100f;
-
-    private float nextTimeToFire = 0;
 
     private void Start()
     {

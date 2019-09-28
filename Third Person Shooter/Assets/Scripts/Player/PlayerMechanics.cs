@@ -26,32 +26,41 @@ public class PlayerMechanics : MonoBehaviour {
 
 	void Update()
 	{
+        // Methods for moving and rotating player
 		MovePlayer();
 		RotatePlayer();
 
+        // Method used key bindings used to turn on shield
         KeyFunctions();
 
+        // if shield activated you are not allowed to fire bullets
 		if (!shieldActivated) FireBullets();
+        // temporary way tellin you died
         if (hp <= 0) transform.gameObject.SetActive(false);
 
-        Debug.Log(shieldActivated);
 	}
 
 	private void RotatePlayer()
 	{
+        // get the horizontal axis (A and D).
 		float horizontal = Input.GetAxis("Horizontal");
 
+        // create a vector for rotation from horizontal variable
 		Vector3 rotationVector = Vector3.up * (horizontal * rotationSpeed);
 
+        // rotate the player
 		controller.transform.Rotate(rotationVector);
 	}
 
 	private void MovePlayer()
 	{
+        // get the vertical axis (W and S).
 		float vertical = Input.GetAxis("Vertical");
 
+        // move vector for back and forth movement
 		Vector3 moveVector = transform.forward * (vertical * moveSpeed);
 
+        // move the player with a built-in method
 		controller.SimpleMove(moveVector);
 	}
 
@@ -59,16 +68,20 @@ public class PlayerMechanics : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.B) && !(shieldHp < 0))
         {
+            // flip the shield state
             shieldActivated = !shieldActivated;
         }
     }
 
 	void FireBullets()
 	{
+        // fire bullets if space is held down and time is bigger that next time to fire
 		if (Input.GetKey(KeyCode.Space) && Time.time >= nextTimeToFire)
 		{
+            // create the instance
 			Transform instance = Instantiate(prefab, controller.transform.position + (controller.transform.forward * transform.localScale.y), Quaternion.identity);
 
+            // get the rigidbody and set the velocity to the forward direction of the player down below
 			Rigidbody rb = instance.GetComponent<Rigidbody>();
 
 			if (rb != null)
@@ -98,7 +111,7 @@ public class PlayerMechanics : MonoBehaviour {
     public void Heal(float amount)
     {
         hp += amount;
-        if (hp > 0) hp = 100f;
+        if (hp > 100f) hp = 100f;
     }
 
     private void OnCollisionEnter(Collision other)
