@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMechanics : MonoBehaviour {
 
@@ -36,7 +37,7 @@ public class PlayerMechanics : MonoBehaviour {
         // if shield activated you are not allowed to fire bullets
 		if (!shieldActivated) FireBullets();
         // temporary way tellin you died
-        if (hp <= 0) transform.gameObject.SetActive(false);
+        if (hp <= 0) SceneManager.LoadScene(0);
 
 	}
 

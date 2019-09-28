@@ -58,7 +58,7 @@ public class FireScript : MonoBehaviour {
     {
         if (other.transform.CompareTag("Bullet"))
         {
-            TakeDamage(10);
+            TakeDamage(15);
         }
     }
 
