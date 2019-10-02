@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 195876419072572086}
   - component: {fileID: 114904263482395888}
   - component: {fileID: 114796334425337632}
+  - component: {fileID: 114654277038667654}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -558,6 +559,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 114796334425337632}
+--- !u!114 &114654277038667654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352558123764296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195d28369be67344b85f4a527d5c8199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefabs:
+  - {fileID: 4101894068877926, guid: 4e6217aafac484643af93e755a2faf85, type: 2}
 --- !u!114 &114796334425337632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,15 +584,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4511826386905850, guid: 257c2133c85f83c48b05bbcacb7b806e, type: 2}
+  healthPrefab: {fileID: 4101894068877926, guid: 4e6217aafac484643af93e755a2faf85,
+    type: 2}
   launchMultiplier: 15
   fireRate: 6
   allowedLayers:
     serializedVersion: 2
     m_Bits: 1024
   range: 75
-  damage: 5
   startHealthpoints: 100
   maxHealthpoints: 100
+  dropper: {fileID: 0}
   hp: 100
 --- !u!114 &114904263482395888
 MonoBehaviour:
@@ -602,7 +618,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.50000006
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0

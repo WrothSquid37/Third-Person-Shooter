@@ -279,13 +279,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4992346561998052, guid: b5034868586276e4d9366fe3252ca834, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1288533071326336, guid: b5034868586276e4d9366fe3252ca834, type: 2}
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114454061856092206, guid: b5034868586276e4d9366fe3252ca834,
+        type: 2}
+      propertyPath: fireRate
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114771002331452722, guid: b5034868586276e4d9366fe3252ca834, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b5034868586276e4d9366fe3252ca834, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &175335948 stripped
@@ -347,7 +353,7 @@ Transform:
   - {fileID: 1400990619}
   - {fileID: 570422319}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &350349877
 GameObject:
@@ -1212,11 +1218,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 935913744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 9.319265, y: 1, z: 10.746437}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &978354728
 GameObject:
@@ -1349,7 +1355,7 @@ Transform:
   - {fileID: 1900942255}
   - {fileID: 1420386635}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1049468540
 GameObject:
@@ -2175,7 +2181,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 4181256021129100, guid: 814f2a03c6d24804c96117928721c2e8, type: 2}
   - {fileID: 4181256021129100, guid: 9b7dece22c00fae4ea57a8f490c7cd13, type: 2}
-  timeInterval: 10
+  timeInterval: 6
   spawnPlaces:
   - {fileID: 52054841}
   - {fileID: 1759391286}

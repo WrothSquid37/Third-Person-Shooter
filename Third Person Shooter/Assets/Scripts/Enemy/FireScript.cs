@@ -3,6 +3,7 @@
 public class FireScript : MonoBehaviour {
 
     public Transform prefab;
+    public Transform healthPrefab;
 
     public float launchMultiplier = 10f;
     public float fireRate = 10f;
@@ -15,11 +16,14 @@ public class FireScript : MonoBehaviour {
     public float startHealthpoints = 100f;
     public float maxHealthpoints = 100f;
 
+    public PickupDropper dropper;
+
     [HideInInspector] public float hp = 100f;
 
     private void Start()
     {
         hp = startHealthpoints;
+        dropper = GetComponent<PickupDropper>();
     }
 
     private void Update()
@@ -43,15 +47,17 @@ public class FireScript : MonoBehaviour {
                 nextTimeToFire = Time.time + (1f / fireRate);
 
             }
-
         }
-
     }
 
     public void TakeDamage(float amount)
     {
         hp -= amount;
-        if (hp < 0) Destroy(transform.gameObject);
+        if (hp < 0)
+        {
+            dropper.spawnPickup();
+            Destroy(transform.gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision other)

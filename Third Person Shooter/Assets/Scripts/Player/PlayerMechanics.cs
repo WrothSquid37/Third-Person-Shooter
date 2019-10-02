@@ -15,6 +15,9 @@ public class PlayerMechanics : MonoBehaviour {
 
     CharacterController controller;
 
+    public float minHp = 0f;
+    public float maxHp = 100f;
+
     [HideInInspector] public float hp = 100f;
     [HideInInspector] public float shieldHp = 100f;
 
@@ -39,7 +42,10 @@ public class PlayerMechanics : MonoBehaviour {
         // temporary way tellin you died
         if (hp <= 0) SceneManager.LoadScene(0);
 
-	}
+        HealthFunctions();
+
+
+    }
 
 	private void RotatePlayer()
 	{
@@ -58,11 +64,15 @@ public class PlayerMechanics : MonoBehaviour {
         // get the vertical axis (W and S).
 		float vertical = Input.GetAxis("Vertical");
 
+        Vector3 moveVector = new Vector3(0, 0, 0);
+
         // move vector for back and forth movement
-		Vector3 moveVector = transform.forward * (vertical * moveSpeed);
+        if (!shieldActivated) moveVector = transform.forward * (vertical * moveSpeed);
+
+        if (shieldActivated) moveVector = transform.forward * (vertical * (moveSpeed + 3));
 
         // move the player with a built-in method
-		controller.SimpleMove(moveVector);
+        controller.SimpleMove(moveVector);
 	}
 
     private void KeyFunctions()
@@ -88,7 +98,7 @@ public class PlayerMechanics : MonoBehaviour {
 			if (rb != null)
 			{
 				rb.velocity = controller.transform.forward * launchSpeed;
-                nextTimeToFire = Time.time + (1f / fireRate);
+                if (!shieldActivated) nextTimeToFire = Time.time + (1f / fireRate);
             }
 
 		}
@@ -120,6 +130,18 @@ public class PlayerMechanics : MonoBehaviour {
         if (other.transform.CompareTag("Bullet"))
         {
             TakeDamage(5);
+        }
+    }
+
+    private void HealthFunctions()
+    {
+        if (hp <= 0)
+        {
+            hp = 0;
+        }
+        if (hp >= 100)
+        {
+            hp = 100;
         }
     }
 

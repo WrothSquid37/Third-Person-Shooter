@@ -22,9 +22,7 @@ public class EnemySpawner : MonoBehaviour {
         while (true)
         {
             rand1 = Random.Range(0, spawnPlaces.Length);
-            rand2 = Random.Range(1, prefabs.Count);
-
-            Debug.Log(rand1 + " : " + rand2);
+            rand2 = Random.Range(0, prefabs.Count);
 
             Instantiate(prefabs[rand2], spawnPlaces[rand1].position, Quaternion.identity);
 
