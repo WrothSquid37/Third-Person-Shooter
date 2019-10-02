@@ -125,6 +125,12 @@ public class PlayerMechanics : MonoBehaviour {
         if (hp > 100f) hp = 100f;
     }
 
+    public void AddShield(float amount)
+    {
+        shieldHp += amount;
+        if (hp > 100f) hp = 100f;
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.transform.CompareTag("Bullet"))

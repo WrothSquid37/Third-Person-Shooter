@@ -572,6 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupPrefabs:
   - {fileID: 4101894068877926, guid: 4e6217aafac484643af93e755a2faf85, type: 2}
+  - {fileID: 4228783824585622, guid: 3d22c6a5c8245324e949093c28e48f2d, type: 2}
 --- !u!114 &114796334425337632
 MonoBehaviour:
   m_ObjectHideFlags: 1

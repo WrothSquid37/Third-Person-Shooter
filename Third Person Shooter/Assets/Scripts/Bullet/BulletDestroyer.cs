@@ -3,17 +3,30 @@ using UnityEngine;
 
 public class BulletDestroyer : MonoBehaviour {
 
-	public List<string> destroyTags;
+    public float bounces = 0f;
+    public float maxBounces = 4f;
 
-	private void OnCollisionEnter(Collision other)
-	{	
-		foreach (string s in destroyTags)
+    public List<string> destroyTags;
+
+    void Update()
+    {
+        Physics.IgnoreLayerCollision(11,11);
+    }
+
+    private void OnCollisionEnter(Collision other)
+	{
+        bounces += 1f;
+        foreach(string s in destroyTags)
+        {
+            if (other.gameObject.CompareTag(s))
+            {
+                Destroy(gameObject);
+            }
+        }
+		if (bounces > maxBounces)
 		{
-			if (other.gameObject.CompareTag(s))
-			{
-				Destroy(gameObject);
-			}
-		}
+			Destroy(gameObject);
+		}	
 	}
 
 }
