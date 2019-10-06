@@ -3,14 +3,20 @@ using UnityEngine;
 
 public class BulletDestroyer : MonoBehaviour {
 
-    public float bounces = 0f;
+    float bounces = 0f;
     public float maxBounces = 4f;
+    public float damage;
 
     public List<string> destroyTags;
 
     void Update()
     {
         Physics.IgnoreLayerCollision(11,11);
+    }
+
+    public void SetDamage(float amount)
+    {
+        damage = amount;
     }
 
     private void OnCollisionEnter(Collision other)

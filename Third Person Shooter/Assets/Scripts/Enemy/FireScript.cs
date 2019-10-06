@@ -8,6 +8,7 @@ public class FireScript : MonoBehaviour {
     public float launchMultiplier = 10f;
     public float fireRate = 10f;
     private float nextTimeToFire = 0;
+    public float damage = 25f;
 
     public LayerMask allowedLayers;
 
@@ -41,6 +42,10 @@ public class FireScript : MonoBehaviour {
                 Transform clone = Instantiate(prefab, transform.position + shotOffset, Quaternion.identity);
 
                 Rigidbody rb = clone.GetComponent<Rigidbody>();
+
+                BulletDestroyer b = clone.GetComponent<BulletDestroyer>();
+
+                if (b != null) b.SetDamage(damage);
 
                 rb.velocity = transform.forward * launchMultiplier;
 

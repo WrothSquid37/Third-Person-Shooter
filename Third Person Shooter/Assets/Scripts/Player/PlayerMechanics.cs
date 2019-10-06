@@ -7,8 +7,11 @@ public class PlayerMechanics : MonoBehaviour {
 	public float moveSpeed;
 	public float rotationSpeed;
 
+    [HideInInspector] public int fireMode = 1;
+
 	public Transform prefab;
-	public float launchSpeed;
+	public float launchSpeed = 25f;
+    public float damage = 10f;
 
     public float fireRate = 10f;
     private float nextTimeToFire = 0;
@@ -20,7 +23,6 @@ public class PlayerMechanics : MonoBehaviour {
 
     [HideInInspector] public float hp = 100f;
     [HideInInspector] public float shieldHp = 100f;
-
     [HideInInspector] public bool shieldActivated = false;
 
 	void Start()
@@ -30,80 +32,106 @@ public class PlayerMechanics : MonoBehaviour {
 
 	void Update()
 	{
-        // Methods for moving and rotating player
 		MovePlayer();
 		RotatePlayer();
 
-        // Method used key bindings used to turn on shield
         KeyFunctions();
 
-        // if shield activated you are not allowed to fire bullets
-		if (!shieldActivated) FireBullets();
-        // temporary way tellin you died
+		if (!shieldActivated) FireBullets(fireMode);
         if (hp <= 0) SceneManager.LoadScene(0);
 
         HealthFunctions();
 
-
     }
 
-	private void RotatePlayer()
+    #region Movement
+
+    private void RotatePlayer()
 	{
-        // get the horizontal axis (A and D).
 		float horizontal = Input.GetAxis("Horizontal");
 
-        // create a vector for rotation from horizontal variable
 		Vector3 rotationVector = Vector3.up * (horizontal * rotationSpeed);
 
-        // rotate the player
 		controller.transform.Rotate(rotationVector);
 	}
 
 	private void MovePlayer()
 	{
-        // get the vertical axis (W and S).
+
 		float vertical = Input.GetAxis("Vertical");
 
         Vector3 moveVector = new Vector3(0, 0, 0);
 
-        // move vector for back and forth movement
         if (!shieldActivated) moveVector = transform.forward * (vertical * moveSpeed);
-
         if (shieldActivated) moveVector = transform.forward * (vertical * (moveSpeed + 3));
 
-        // move the player with a built-in method
         controller.SimpleMove(moveVector);
 	}
+
+    #endregion
+
+    #region Player Bullets
 
     private void KeyFunctions()
     {
         if (Input.GetKeyDown(KeyCode.B) && !(shieldHp < 0))
         {
-            // flip the shield state
             shieldActivated = !shieldActivated;
         }
     }
 
-	void FireBullets()
+	void FireBullets(int mode)
 	{
-        // fire bullets if space is held down and time is bigger that next time to fire
-		if (Input.GetKey(KeyCode.Space) && Time.time >= nextTimeToFire)
+		if (Input.GetKey(KeyCode.Space) && Time.time >= nextTimeToFire && mode == 0)
 		{
-            // create the instance
 			Transform instance = Instantiate(prefab, controller.transform.position + (controller.transform.forward * transform.localScale.y), Quaternion.identity);
 
-            // get the rigidbody and set the velocity to the forward direction of the player down below
 			Rigidbody rb = instance.GetComponent<Rigidbody>();
+
+            BulletDestroyer bulletScript = instance.GetComponent<BulletDestroyer>();
+
+            if (bulletScript != null) bulletScript.SetDamage(damage);
 
 			if (rb != null)
 			{
 				rb.velocity = controller.transform.forward * launchSpeed;
-                if (!shieldActivated) nextTimeToFire = Time.time + (1f / fireRate);
+                nextTimeToFire = Time.time + (1f / fireRate);
             }
 
 		}
 
-	}
+        if (Input.GetKey(KeyCode.Space) && Time.time >= nextTimeToFire && mode == 1)
+        {
+            Transform instance = Instantiate(prefab, controller.transform.position + (controller.transform.forward * transform.localScale.y), Quaternion.identity);
+
+            Rigidbody rb = instance.GetComponent<Rigidbody>();
+
+            BulletDestroyer bulletScript = instance.GetComponent<BulletDestroyer>();
+
+            bulletScript.SetDamage();
+
+            if (rb != null)
+            {
+                rb.velocity = controller.transform.forward * launchSpeed;
+                nextTimeToFire = Time.time + (1f / (fireRate + 10f));
+            }
+
+        }
+
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.transform.CompareTag("Bullet"))
+        {
+            BulletDestroyer b = other.gameObject.GetComponent<BulletDestroyer>();
+            if (b != null) TakeDamage(b.damage);
+        }
+    }
+
+    #endregion
+
+    #region Health...
 
     public void TakeDamage(float amount)
     {
@@ -118,6 +146,7 @@ public class PlayerMechanics : MonoBehaviour {
         if (hp < 0) hp = 0;
         if (shieldHp < 0) shieldActivated = false;
     }
+  
 
     public void Heal(float amount)
     {
@@ -131,14 +160,6 @@ public class PlayerMechanics : MonoBehaviour {
         if (hp > 100f) hp = 100f;
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.transform.CompareTag("Bullet"))
-        {
-            TakeDamage(5);
-        }
-    }
-
     private void HealthFunctions()
     {
         if (hp <= 0)
@@ -150,5 +171,7 @@ public class PlayerMechanics : MonoBehaviour {
             hp = 100;
         }
     }
+
+    #endregion
 
 }

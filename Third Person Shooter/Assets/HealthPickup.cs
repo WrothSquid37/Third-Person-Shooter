@@ -7,6 +7,7 @@ public class HealthPickup : MonoBehaviour {
     public float healAmount = 25f;
     public float amp;
     public float period;
+    public float rotationSpeed = 0.5f;
     float ty = 0;
     float vy = 0;
 
@@ -20,6 +21,7 @@ public class HealthPickup : MonoBehaviour {
         ty = Mathf.Sin(Time.time/period) * amp;
         Vector3 v = new Vector3(transform.position.x, vy + ty, transform.position.z);
         transform.position = v;
+        //transform.Rotate(Vector3.up * rotationSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
