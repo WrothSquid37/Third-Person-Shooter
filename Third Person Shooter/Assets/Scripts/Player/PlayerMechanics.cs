@@ -7,7 +7,9 @@ public class PlayerMechanics : MonoBehaviour {
 	public float moveSpeed;
 	public float rotationSpeed;
 
-    [HideInInspector] public int fireMode = 1;
+    float orginalDamageValue;
+
+    [HideInInspector] public int fireMode = 2;
 
 	public Transform prefab;
 	public float launchSpeed = 25f;
@@ -28,7 +30,9 @@ public class PlayerMechanics : MonoBehaviour {
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
-	}
+        orginalDamageValue = damage;
+
+    }
 
 	void Update()
 	{
@@ -108,7 +112,7 @@ public class PlayerMechanics : MonoBehaviour {
 
             BulletDestroyer bulletScript = instance.GetComponent<BulletDestroyer>();
 
-            bulletScript.SetDamage();
+            bulletScript.SetDamage(damage);
 
             if (rb != null)
             {
@@ -172,6 +176,16 @@ public class PlayerMechanics : MonoBehaviour {
         }
     }
 
+    #endregion
+
+    #region Powerup Functions 
+
+    public void SetDamage(float amount, bool orginal)
+    {
+        if (!orginal) damage = amount;
+        if (orginal) damage = orginalDamageValue;
+    }
+    
     #endregion
 
 }
