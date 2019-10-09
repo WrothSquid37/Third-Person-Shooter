@@ -6,6 +6,7 @@ public class BulletDestroyer : MonoBehaviour {
     float bounces = 0f;
     public float maxBounces = 4f;
     public float damage;
+    public string sender;
 
     public List<string> destroyTags;
 
@@ -17,6 +18,16 @@ public class BulletDestroyer : MonoBehaviour {
     public void SetDamage(float amount)
     {
         damage = amount;
+    }
+
+    public void SetSender(string value)
+    {
+        sender = value;
+    }
+
+    public string GetSender()
+    {
+        return sender;
     }
 
     private void OnCollisionEnter(Collision other)

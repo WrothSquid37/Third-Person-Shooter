@@ -9,7 +9,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     float orginalDamageValue;
 
-    [HideInInspector] public int fireMode = 2;
+    [HideInInspector] public int fireMode = 0;
 
 	public Transform prefab;
 	public float launchSpeed = 25f;
@@ -31,7 +31,7 @@ public class PlayerMechanics : MonoBehaviour {
 	{
 		controller = GetComponent<CharacterController>();
         orginalDamageValue = damage;
-
+        fireMode = 0;
     }
 
 	void Update()
@@ -86,7 +86,7 @@ public class PlayerMechanics : MonoBehaviour {
 
 	void FireBullets(int mode)
 	{
-		if (Input.GetKey(KeyCode.Space) && Time.time >= nextTimeToFire && mode == 0)
+		if (Input.GetKey(KeyCode.Space) && Time.time >= nextTimeToFire)
 		{
 			Transform instance = Instantiate(prefab, controller.transform.position + (controller.transform.forward * transform.localScale.y), Quaternion.identity);
 
@@ -94,30 +94,20 @@ public class PlayerMechanics : MonoBehaviour {
 
             BulletDestroyer bulletScript = instance.GetComponent<BulletDestroyer>();
 
+            bulletScript.SetSender("Player");
+            bulletScript.SetDamage(damage);
+
             if (bulletScript != null) bulletScript.SetDamage(damage);
 
-			if (rb != null)
+			if (rb != null && mode == 0)
 			{
 				rb.velocity = controller.transform.forward * launchSpeed;
                 nextTimeToFire = Time.time + (1f / fireRate);
             }
-
-		}
-
-        if (Input.GetKey(KeyCode.Space) && Time.time >= nextTimeToFire && mode == 1)
-        {
-            Transform instance = Instantiate(prefab, controller.transform.position + (controller.transform.forward * transform.localScale.y), Quaternion.identity);
-
-            Rigidbody rb = instance.GetComponent<Rigidbody>();
-
-            BulletDestroyer bulletScript = instance.GetComponent<BulletDestroyer>();
-
-            bulletScript.SetDamage(damage);
-
-            if (rb != null)
+            if (rb != null && mode == 1)
             {
                 rb.velocity = controller.transform.forward * launchSpeed;
-                nextTimeToFire = Time.time + (1f / (fireRate + 10f));
+                nextTimeToFire = Time.time + (1f / (fireRate + 7f));
             }
 
         }
@@ -129,7 +119,8 @@ public class PlayerMechanics : MonoBehaviour {
         if (other.transform.CompareTag("Bullet"))
         {
             BulletDestroyer b = other.gameObject.GetComponent<BulletDestroyer>();
-            if (b != null) TakeDamage(b.damage);
+            string sender = b.GetSender();
+            if (b != null && sender != "Player") TakeDamage(b.damage);
         }
     }
 

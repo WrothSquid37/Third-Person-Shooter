@@ -590,7 +590,7 @@ MonoBehaviour:
     type: 2}
   launchMultiplier: 15
   fireRate: 3
-  damage: 25
+  damage: 10
   allowedLayers:
     serializedVersion: 2
     m_Bits: 1024
