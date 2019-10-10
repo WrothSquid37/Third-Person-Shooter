@@ -7,7 +7,7 @@ public class DeathPlaneScript : MonoBehaviour {
     {
         if (other.transform.CompareTag("Player"))
         {
-            SceneManager.LoadScene(0);
+            other.gameObject.GetComponent<PlayerMechanics>().hp = 0;
         }
         if (other.transform.CompareTag("Enemy"))
         {

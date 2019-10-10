@@ -19,6 +19,7 @@ public class PlayerMechanics : MonoBehaviour {
     private float nextTimeToFire = 0;
 
     CharacterController controller;
+    public GameOverMenu menu;
 
     public float minHp = 0f;
     public float maxHp = 100f;
@@ -26,6 +27,8 @@ public class PlayerMechanics : MonoBehaviour {
     [HideInInspector] public float hp = 100f;
     [HideInInspector] public float shieldHp = 100f;
     [HideInInspector] public bool shieldActivated = false;
+
+    bool runOnce = false;
 
 	void Start()
 	{
@@ -42,7 +45,11 @@ public class PlayerMechanics : MonoBehaviour {
         KeyFunctions();
 
 		if (!shieldActivated) FireBullets(fireMode);
-        if (hp <= 0) SceneManager.LoadScene(0);
+        if (hp <= 0 && !runOnce)
+        {
+            menu.ShowMenu();
+            gameObject.SetActive(false);
+        }
 
         HealthFunctions();
 
