@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class PlayerMechanics : MonoBehaviour {
 
-	
+    public Color defualtColor;
+    public Color damageColor;
+
+    enum State
+    {
+        Alive, Dead
+    }
+
+    State playerState = State.Alive;
+
 	public float moveSpeed;
 	public float rotationSpeed;
 
@@ -20,6 +31,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     CharacterController controller;
     public GameOverMenu menu;
+    public ShieldController c;
 
     public float minHp = 0f;
     public float maxHp = 100f;
@@ -30,27 +42,31 @@ public class PlayerMechanics : MonoBehaviour {
 
     bool runOnce = false;
 
+    Renderer rend;
+
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
         orginalDamageValue = damage;
         fireMode = 0;
+        
+        rend = GetComponent<Renderer>();
     }
 
 	void Update()
 	{
-		MovePlayer();
-		RotatePlayer();
-
-        KeyFunctions();
-
-		if (!shieldActivated) FireBullets(fireMode);
         if (hp <= 0 && !runOnce)
         {
+            playerState = State.Dead;
             menu.ShowMenu();
-            gameObject.SetActive(false);
         }
 
+        if (playerState == State.Dead) return;
+
+        if (!shieldActivated) FireBullets(fireMode);
+        MovePlayer();
+        RotatePlayer();
+        KeyFunctions();      
         HealthFunctions();
 
     }
@@ -85,7 +101,7 @@ public class PlayerMechanics : MonoBehaviour {
 
     private void KeyFunctions()
     {
-        if (Input.GetKeyDown(KeyCode.B) && !(shieldHp < 0))
+        if (Input.GetKeyDown(KeyCode.C) && !(shieldHp < 0))
         {
             shieldActivated = !shieldActivated;
         }
@@ -125,9 +141,16 @@ public class PlayerMechanics : MonoBehaviour {
     {
         if (other.transform.CompareTag("Bullet"))
         {
+            StopAllCoroutines();
             BulletDestroyer b = other.gameObject.GetComponent<BulletDestroyer>();
             string sender = b.GetSender();
-            if (b != null && sender != "Player") TakeDamage(b.damage);
+            if (b != null && sender != "Player")
+            {
+                if (!shieldActivated) StartCoroutine(Damaged(0.075f));
+                if (shieldActivated) c.DamageShield();
+                TakeDamage(b.damage);
+            }
+            
         }
     }
 
@@ -183,7 +206,28 @@ public class PlayerMechanics : MonoBehaviour {
         if (!orginal) damage = amount;
         if (orginal) damage = orginalDamageValue;
     }
-    
+
+    #endregion
+
+    #region Player Visuals
+
+    IEnumerator Damaged(float returnIncrement)
+    {
+        
+
+        float t = 1;
+
+        while(true)
+        {
+            rend.material.color = Color.Lerp(defualtColor, damageColor, t);
+            t -= returnIncrement;
+            yield return new WaitForSeconds(Time.deltaTime);
+            Debug.Log(t);
+            if (t <= 0) yield return null;
+        }
+
+    }
+
     #endregion
 
 }

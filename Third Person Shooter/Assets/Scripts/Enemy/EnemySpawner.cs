@@ -17,6 +17,11 @@ public class EnemySpawner : MonoBehaviour {
         StartCoroutine(spawnTimer());     
     }
 
+    public void stopSpawning()
+    {
+        StopAllCoroutines();
+    }
+
     IEnumerator spawnTimer()
     {
         while (true)

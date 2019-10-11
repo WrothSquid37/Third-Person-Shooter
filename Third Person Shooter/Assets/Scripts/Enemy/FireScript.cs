@@ -2,22 +2,25 @@
 
 public class FireScript : MonoBehaviour {
 
+    [Header("Prefabs")]
     public Transform prefab;
     public Transform healthPrefab;
 
-    public float launchMultiplier = 10f;
-    public float fireRate = 10f;
-    private float nextTimeToFire = 0;
+    [Header("Shooting")]
     public float damage = 25f;
+    public float launchMultiplier = 17f;
+    public float fireRate = 10f; 
 
+    [Header("Raycasts")]
     public LayerMask allowedLayers;
-
     public float range = 100f;
 
+    [Header("Health")]
     public float startHealthpoints = 100f;
     public float maxHealthpoints = 100f;
 
-    public PickupDropper dropper;
+    PickupDropper dropper;
+    private float nextTimeToFire = 0;
 
     [HideInInspector] public float hp = 100f;
 
@@ -46,6 +49,7 @@ public class FireScript : MonoBehaviour {
                 BulletDestroyer b = clone.GetComponent<BulletDestroyer>();
 
                 if (b != null) b.SetDamage(damage);
+                b.SetSender("Enemy");
 
                 rb.velocity = transform.forward * launchMultiplier;
 
@@ -67,9 +71,11 @@ public class FireScript : MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.transform.CompareTag("Bullet"))
+        if (other.transform.CompareTag("Bullet") && other.gameObject)
         {
-            TakeDamage(15);
+            BulletDestroyer b = other.gameObject.GetComponent<BulletDestroyer>();
+            string sender = b.GetSender();
+            if (b != null && sender != "Enemy") TakeDamage(b.damage);
         }
     }
 

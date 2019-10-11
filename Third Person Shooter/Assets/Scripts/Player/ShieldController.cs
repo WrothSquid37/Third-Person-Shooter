@@ -5,6 +5,10 @@ using UnityEngine;
 public class ShieldController : MonoBehaviour {
 
     public PlayerMechanics player;
+    Renderer rend;
+
+    public Color defualtColor;
+    public Color damagedColor;
 
     Vector3 initialSize;
     Vector3 currentSize;
@@ -18,6 +22,7 @@ public class ShieldController : MonoBehaviour {
         currentSize = initialSize;
         endSize = transform.parent.localScale;
         initialHp = player.shieldHp;
+        rend = GetComponent<Renderer>();
     }
 
     void Update()
@@ -32,6 +37,26 @@ public class ShieldController : MonoBehaviour {
         else
         {
             transform.localScale = new Vector3(0, 0, 0);
+        }
+    }
+
+    public void DamageShield()
+    {
+        StopAllCoroutines();
+        StartCoroutine(ShieldDamaged(0.075f));
+    }
+
+    IEnumerator ShieldDamaged(float returnIncrement)
+    {
+        float t = 1;
+
+        while (true)
+        {
+            rend.material.color = Color.Lerp(defualtColor, damagedColor, t);
+            t -= returnIncrement;
+            yield return new WaitForSeconds(Time.deltaTime);
+            Debug.Log(t);
+            if (t <= 0) yield return null;
         }
     }
 }
