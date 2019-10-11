@@ -31,7 +31,7 @@ public class GameOverMenu : MonoBehaviour
         float t = 0;
         while (true)
         {
-            backgroundColor.a = Mathf.Lerp(0.7f, 0, t);
+            backgroundColor.a -= increment;
             yield return new WaitForSeconds(Time.deltaTime);
             t += increment;
             imageBackground.color = backgroundColor;            
@@ -42,10 +42,9 @@ public class GameOverMenu : MonoBehaviour
         float t = 0;
         backgroundColor.a = 0;
         imageBackground.color = backgroundColor;
-        Debug.Log(true);
         while (true)
         {
-            backgroundColor.a = Mathf.Lerp(0, 0.7f, t);
+            backgroundColor.a += increment;
             yield return new WaitForSeconds(Time.deltaTime);
             t += increment;
             imageBackground.color = backgroundColor;
