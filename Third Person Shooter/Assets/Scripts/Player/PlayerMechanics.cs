@@ -59,6 +59,7 @@ public class PlayerMechanics : MonoBehaviour {
         {
             playerState = State.Dead;
             menu.ShowMenu();
+            runOnce = true;
         }
 
         if (playerState == State.Dead) return;

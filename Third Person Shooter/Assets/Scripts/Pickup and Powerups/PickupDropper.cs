@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PickupDropper : MonoBehaviour {
 
-	public List<Transform> pickupPrefabs;
+    public PickupPrefabs pickupPrefabs;
 
     public void spawnPickup()
     {
-        int rand1 = Random.Range(0, pickupPrefabs.Count + 1);
+        int rand1 = Random.Range(0, pickupPrefabs.prefabs.Count + 1);
 
-        if (!(rand1 > pickupPrefabs.Count - 1)) Instantiate(pickupPrefabs[rand1], transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+        if (!(rand1 > pickupPrefabs.prefabs.Count - 1)) Instantiate(pickupPrefabs.prefabs[rand1], transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
     }
 }

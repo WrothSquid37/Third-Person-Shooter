@@ -237,6 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9118f979ac5a5046abb565d873736f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defualtColor: {r: 0, g: 0, b: 0, a: 0}
+  damageColor: {r: 0, g: 0, b: 0, a: 0}
   moveSpeed: 7
   rotationSpeed: 6
   fireMode: 0
@@ -245,6 +247,7 @@ MonoBehaviour:
   damage: 10
   fireRate: 5
   menu: {fileID: 0}
+  c: {fileID: 0}
   minHp: 0
   maxHp: 100
   hp: 100
@@ -663,3 +666,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 114454061856092206}
+  defualtColor: {r: 0, g: 0, b: 0, a: 0}
+  damagedColor: {r: 0, g: 0, b: 0, a: 0}

@@ -24,10 +24,14 @@ public class FireScript : MonoBehaviour {
 
     [HideInInspector] public float hp = 100f;
 
+    public ScoreScript scoreObj;
+    public float killScore;
+
     private void Start()
     {
         hp = startHealthpoints;
         dropper = GetComponent<PickupDropper>();
+        scoreObj = GameObject.Find("ScoreObject").gameObject.GetComponent<ScoreScript>();
     }
 
     private void Update()
@@ -65,6 +69,7 @@ public class FireScript : MonoBehaviour {
         if (hp < 0)
         {
             dropper.spawnPickup();
+            scoreObj.AddScore(killScore);
             Destroy(transform.gameObject);
         }
     }

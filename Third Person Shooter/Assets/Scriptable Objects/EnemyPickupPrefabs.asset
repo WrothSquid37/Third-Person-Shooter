@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e6210f0360b1e4ea2e9e1f78858641, type: 3}
+  m_Name: EnemyPickupPrefabs
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 4101894068877926, guid: 4e6217aafac484643af93e755a2faf85, type: 3}
+  - {fileID: 4907514948692410, guid: eae6799dcfba31d438bc6d62849eecb2, type: 3}
+  - {fileID: 4228783824585622, guid: 3d22c6a5c8245324e949093c28e48f2d, type: 3}

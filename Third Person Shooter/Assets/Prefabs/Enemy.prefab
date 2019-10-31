@@ -282,6 +282,8 @@ MonoBehaviour:
   startHealthpoints: 100
   maxHealthpoints: 100
   hp: 100
+  scoreObj: {fileID: 0}
+  killScore: 25
 --- !u!114 &114248591636124610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,10 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195d28369be67344b85f4a527d5c8199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefabs:
-  - {fileID: 4101894068877926, guid: 4e6217aafac484643af93e755a2faf85, type: 3}
-  - {fileID: 4228783824585622, guid: 3d22c6a5c8245324e949093c28e48f2d, type: 3}
-  - {fileID: 4907514948692410, guid: eae6799dcfba31d438bc6d62849eecb2, type: 3}
+  pickupPrefabs: {fileID: 11400000, guid: f73603b41be9f93438bc1570174fbeab, type: 2}
 --- !u!1 &1371939215423800
 GameObject:
   m_ObjectHideFlags: 0

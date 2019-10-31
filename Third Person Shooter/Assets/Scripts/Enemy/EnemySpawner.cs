@@ -13,7 +13,6 @@ public class EnemySpawner : MonoBehaviour {
 
     private void Start()
     {
-        Debug.Log(prefabs.Count);
         StartCoroutine(spawnTimer());     
     }
 
