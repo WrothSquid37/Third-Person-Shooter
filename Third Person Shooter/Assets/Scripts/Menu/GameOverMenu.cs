@@ -9,20 +9,22 @@ public class GameOverMenu : MonoBehaviour
     public Transform background;
     public Image imageBackground;
     public Color backgroundColor;
+    public AnimationIntepreter anim;
     Color c;
 
     private void Start()
     {
         container.gameObject.SetActive(false);
-        StartCoroutine(FadeOut(0.025f));
-        c = backgroundColor;
+        anim.StartAnimation("forward");
+        //StartCoroutine(FadeOut(0.025f));
+        //c = backgroundColor;
     }
 
     public void ShowMenu()
     {
         container.gameObject.SetActive(true);
-        StopAllCoroutines();
-        StartCoroutine(FadeIn(0.025f));
+        //StopAllCoroutines();
+        //StartCoroutine(FadeIn(0.025f));
     }
 
     IEnumerator FadeOut(float increment)

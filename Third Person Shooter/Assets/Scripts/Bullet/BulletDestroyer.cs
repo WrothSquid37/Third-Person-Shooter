@@ -7,12 +7,22 @@ public class BulletDestroyer : MonoBehaviour {
     public float maxBounces = 4f;
     public float damage;
     public string sender;
+	float velocityMult = 1f;
+	Rigidbody rb;
 
     public List<string> destroyTags;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
         Physics.IgnoreLayerCollision(11,11);
+
+        rb.velocity *= 1.001f;
+
+        
     }
 
     public void SetDamage(float amount)
